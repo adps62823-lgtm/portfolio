@@ -1228,9 +1228,11 @@ footer {
     <div class="cert-filters reveal">
       <button class="filter-btn active" onclick="filterCerts('all', this)">All</button>
       <button class="filter-btn" onclick="filterCerts('tech', this)">Tech</button>
-      <button class="filter-btn" onclick="filterCerts('data', this)">Data &amp; AI</button>
-      <button class="filter-btn" onclick="filterCerts('design', this)">Design</button>
-      <button class="filter-btn" onclick="filterCerts('business', this)">Business</button>
+      <button class="filter-btn" onclick="filterCerts('academics', this)">Academics</button>
+      <button class="filter-btn" onclick="filterCerts('cca', this)">CCA</button>
+      <button class="filter-btn" onclick="filterCerts('other', this)">Other</button>
+      <button class="filter-btn" onclick="filterCerts('science', this)">Science</button>
+      <button class="filter-btn" onclick="filterCerts('space', this)">Space</button>
     </div>
 
     <div class="cert-grid" id="cert-grid">
@@ -1249,7 +1251,7 @@ footer {
 
       <!-- CERT 1 -->
       <div class="cert-card reveal" data-category="tech"
-           onclick="openLightbox('images/1.jpg', 'Certificate Title 1', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/1.jpg', 'National Space Olympiad - Fourth Place', 'Edu Mithra · 2022')">
         <div class="cert-img-wrap">
           <img src="images/1.jpg" alt="Certificate 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1261,17 +1263,19 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 1</div><!-- ↓ UPDATE name -->
+          <div class="cert-name">National Space Olympiad - Fourth Place</div><!-- ↓ UPDATE name -->
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span><!-- ↓ UPDATE issuer & year -->
-            <span class="cert-tag tech">Tech</span>
+            <span class="cert-issuer">Edu Mithra · 2022</span><!-- ↓ UPDATE issuer & year -->
+            <span class="cert-tag tech">Other</span>
+            <span class="cert-tag tech">Space</span>
+            <span class="cert-tag tech">Science</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 2 -->
       <div class="cert-card reveal reveal-delay-1" data-category="data"
-           onclick="openLightbox('images/2.jpg', 'Certificate Title 2', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/2.jpg', 'Web Development Competition - First Place', 'KritNova · 2025')">
         <div class="cert-img-wrap">
           <img src="images/2.jpg" alt="Certificate 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1283,17 +1287,18 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 2</div>
+          <div class="cert-name">Web Development Competition - First Place</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span>
-            <span class="cert-tag data">Data</span>
+            <span class="cert-issuer">KritNova · 2025</span>
+            <span class="cert-tag data">Tech</span>
+            <span class="cert-tag tech">CCA</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 3 -->
       <div class="cert-card reveal reveal-delay-2" data-category="design"
-           onclick="openLightbox('images/3.jpg', 'Certificate Title 3', 'Issuer Platform · 2023')">
+           onclick="openLightbox('images/3.jpg', 'Highest Percentage', 'School · 2026')">
         <div class="cert-img-wrap">
           <img src="images/3.jpg" alt="Certificate 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1305,17 +1310,17 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 3</div>
+          <div class="cert-name">Highest Percentage</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2023</span>
-            <span class="cert-tag design">Design</span>
+            <span class="cert-issuer">School · 2026</span>
+            <span class="cert-tag design">Academics</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 4 -->
       <div class="cert-card reveal reveal-delay-3" data-category="business"
-           onclick="openLightbox('images/4.jpg', 'Certificate Title 4', 'Issuer Platform · 2023')">
+           onclick="openLightbox('images/4.jpg', 'All Rounder Award', 'School · 2026')">
         <div class="cert-img-wrap">
           <img src="images/4.jpg" alt="Certificate 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1327,17 +1332,18 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 4</div>
+          <div class="cert-name">All Rounder Award</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2023</span>
-            <span class="cert-tag business">Business</span>
+            <span class="cert-issuer">School · 2026</span>
+            <span class="cert-tag business">Other</span>
+            <span class="cert-tag tech">Rubirics</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 5 -->
       <div class="cert-card reveal" data-category="tech"
-           onclick="openLightbox('images/5.jpg', 'Certificate Title 5', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/5.jpg', 'Comfest\'25', 'JaipuriaComputerClub · 2025')">
         <div class="cert-img-wrap">
           <img src="images/5.jpg" alt="Certificate 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1349,17 +1355,18 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 5</div>
+          <div class="cert-name">Comfest'25</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-issuer">JaipuriaComputerClub · 2025</span>
             <span class="cert-tag tech">Tech</span>
+            <span class="cert-tag tech">CCA</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 6 -->
       <div class="cert-card reveal reveal-delay-1" data-category="data"
-           onclick="openLightbox('images/6.jpg', 'Certificate Title 6', 'Issuer Platform · 2023')">
+           onclick="openLightbox('images/6.jpg', 'District Science Competition - Fourth Place', 'Uttar Pradesh Govt. · 2026')">
         <div class="cert-img-wrap">
           <img src="images/6.jpg" alt="Certificate 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1371,17 +1378,18 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 6</div>
+          <div class="cert-name">District Science Competition - Fourth Place</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2023</span>
-            <span class="cert-tag data">Data</span>
+            <span class="cert-issuer">Uttar Pradesh Govt. · 2026</span>
+            <span class="cert-tag data">Tech</span>
+            <span class="cert-tag tech">Science</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 7 -->
       <div class="cert-card reveal reveal-delay-2" data-category="tech"
-           onclick="openLightbox('images/7.jpg', 'Certificate Title 7', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/7.jpg', 'French Fest - Ultimate Winner', 'School · 2024')">
         <div class="cert-img-wrap">
           <img src="images/7.jpg" alt="Certificate 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1393,17 +1401,17 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 7</div>
+          <div class="cert-name">French Fest - Ultimate Winner</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span>
-            <span class="cert-tag tech">Tech</span>
+            <span class="cert-issuer">School · 2024</span>
+            <span class="cert-tag tech">CCA</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 8 -->
       <div class="cert-card reveal reveal-delay-3" data-category="design"
-           onclick="openLightbox('images/8.jpg', 'Certificate Title 8', 'Issuer Platform · 2023')">
+           onclick="openLightbox('images/8.jpg', 'Learnstorm \'21 - Student Champion', 'Khan Academy · 2021')">
         <div class="cert-img-wrap">
           <img src="images/8.jpg" alt="Certificate 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1415,17 +1423,17 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 8</div>
+          <div class="cert-name">Learnstorm '21 - Student Champion</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2023</span>
-            <span class="cert-tag design">Design</span>
+            <span class="cert-issuer">Khan Academy · 2021</span>
+            <span class="cert-tag design">Other</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 9 -->
       <div class="cert-card reveal" data-category="business"
-           onclick="openLightbox('images/9.jpg', 'Certificate Title 9', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/9.jpg', 'RS Online Postcard', 'Round Square · 2022')">
         <div class="cert-img-wrap">
           <img src="images/9.jpg" alt="Certificate 9" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1437,17 +1445,17 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 9</div>
+          <div class="cert-name">RS Online Postcard</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span>
-            <span class="cert-tag business">Business</span>
+            <span class="cert-issuer">Round Square · 2022</span>
+            <span class="cert-tag business">CCA</span>
           </div>
         </div>
       </div>
 
       <!-- CERT 10 -->
       <div class="cert-card reveal reveal-delay-1" data-category="data"
-           onclick="openLightbox('images/10.jpg', 'Certificate Title 10', 'Issuer Platform · 2024')">
+           onclick="openLightbox('images/10.jpg', 'Enterpreneurship Competition - Winner', 'Impetus-School · 2024')">
         <div class="cert-img-wrap">
           <img src="images/10.jpg" alt="Certificate 10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="cert-placeholder" style="display:none">
@@ -1459,10 +1467,11 @@ footer {
           </div>
         </div>
         <div class="cert-info">
-          <div class="cert-name">Certificate Title 10</div>
+          <div class="cert-name">Enterpreneurship Competition - Winner</div>
           <div class="cert-meta">
-            <span class="cert-issuer">Issuer · 2024</span>
-            <span class="cert-tag data">Data</span>
+            <span class="cert-issuer">Impetus-School · 2024</span>
+            <span class="cert-tag data">CCA</span>
+            <span class="cert-tag tech">Tech</span>
           </div>
         </div>
       </div>
