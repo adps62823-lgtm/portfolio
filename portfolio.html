@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Your Name</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script>
+// Safe wrapper — queues calls until Lucide is ready
+window._lucideReady = false;
+window._lucideQueue = [];
+window.safeCreateIcons = function() {
+  if (window._lucideReady) { lucide.createIcons(); }
+  else { window._lucideQueue.push(true); }
+};
+</script>
+<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js" onload="window._lucideReady=true; lucide.createIcons(); window._lucideQueue=[];"></script>
+
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN SYSTEM — DARK EDITORIAL TECH AESTHETIC
+   ═══════════════════════════════════════════════ */
+:root {
+  --bg: #080a0f;
+  --bg2: #0e1118;
+  --bg3: #141720;
+  --surface: #1a1f2e;
+  --surface2: #222840;
+  --border: rgba(255,255,255,0.07);
+  --border-bright: rgba(255,255,255,0.14);
+  --accent: #6ee7ff;
+  --accent2: #a78bfa;
+  --accent3: #34d399;
+  --warn: #fbbf24;
+  --text: #f0f4ff;
+  --text2: #8892aa;
+  --text3: #4a5568;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --r: 12px;
+  --r-lg: 20px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.5);
+  --glow-blue: 0 0 40px rgba(110,231,255,0.15);
+  --glow-purple: 0 0 40px rgba(167,139,250,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 10px; }
+
+/* ═══════════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(8,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface); }
+.nav-cta {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  font-weight: 600 !important;
+  padding: 6px 18px !important;
+}
+.nav-cta:hover { box-shadow: 0 0 20px rgba(110,231,255,0.4) !important; transform: translateY(-1px); }
+
+.nav-hamburger { display: none; cursor: pointer; color: var(--text); }
+
+/* ═══════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 80px 48px 60px;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(110,231,255,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(167,139,250,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 60% 80%, rgba(52,211,153,0.04) 0%, transparent 70%);
+}
+
+/* Animated grid */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; width: 100%;
+  display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(110,231,255,0.08);
+  border: 1px solid rgba(110,231,255,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.hero-name .line2 { color: var(--accent); }
+
+.hero-title {
+  font-size: 1.15rem;
+  color: var(--text2);
+  font-weight: 300;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+}
+.hero-title strong { color: var(--accent2); font-weight: 500; }
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text2);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  border: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 0 rgba(110,231,255,0);
+}
+.btn-primary:hover { box-shadow: 0 0 30px rgba(110,231,255,0.35); transform: translateY(-2px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-bright);
+}
+.btn-secondary:hover { background: var(--surface); border-color: rgba(255,255,255,0.2); }
+
+.hero-stats {
+  display: flex; gap: 32px; margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.stat-item { }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+}
+.stat-num span { color: var(--accent); }
+.stat-label { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+/* Hero card */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  box-shadow: var(--shadow), var(--glow-purple);
+  position: relative; overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.hero-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800; color: var(--bg);
+  margin-bottom: 20px;
+  /* ══ REPLACE THIS with your actual photo: ══
+     <img src="your-photo.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover">
+  */
+}
+.hero-card-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem; font-weight: 700;
+  margin-bottom: 4px;
+}
+/* ↑ REPLACE "Your Name" with your actual name in the HTML below */
+.hero-card-role { font-size: 0.85rem; color: var(--accent); margin-bottom: 20px; }
+
+.skill-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.chip {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  color: var(--text2);
+  font-weight: 500;
+}
+
+.availability {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; color: var(--accent3);
+  font-weight: 500;
+}
+.avail-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent3);
+  animation: pulse-avail 2.5s ease-in-out infinite;
+}
+@keyframes pulse-avail {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(80px); opacity: 0.25; animation: float-orb 8s ease-in-out infinite;
+}
+@keyframes float-orb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION COMMONS
+   ═══════════════════════════════════════════════ */
+section { position: relative; z-index: 1; }
+
+.section-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 100px 48px;
+}
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.section-tag::before {
+  content: '';
+  display: block; width: 20px; height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 1rem; color: var(--text2);
+  max-width: 560px; line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+/* ═══════════════════════════════════════════════
+   SKILLS
+   ═══════════════════════════════════════════════ */
+#skills { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.skill-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s;
+}
+.skill-card:hover { border-color: var(--border-bright); transform: translateY(-4px); box-shadow: var(--shadow); }
+.skill-card:hover::after { transform: scaleX(1); }
+.skill-card.blue::after { background: var(--accent); }
+.skill-card.purple::after { background: var(--accent2); }
+.skill-card.green::after { background: var(--accent3); }
+.skill-card.yellow::after { background: var(--warn); }
+
+.skill-card-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px;
+}
+.skill-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.skill-icon.blue { background: rgba(110,231,255,0.12); color: var(--accent); }
+.skill-icon.purple { background: rgba(167,139,250,0.12); color: var(--accent2); }
+.skill-icon.green { background: rgba(52,211,153,0.12); color: var(--accent3); }
+.skill-icon.yellow { background: rgba(251,191,36,0.12); color: var(--warn); }
+
+.skill-card-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; }
+.skill-card-subtitle { font-size: 0.8rem; color: var(--text3); margin-top: 2px; }
+
+.skill-bars { display: flex; flex-direction: column; gap: 12px; }
+
+.skill-bar-item {}
+.skill-bar-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.skill-bar-name { font-size: 0.82rem; color: var(--text2); font-weight: 500; }
+.skill-bar-pct { font-size: 0.75rem; color: var(--text3); font-family: var(--font-display); font-weight: 700; }
+
+.bar-track {
+  height: 5px; background: rgba(255,255,255,0.06);
+  border-radius: 100px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 100px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.bar-fill.blue { background: linear-gradient(90deg, var(--accent), rgba(110,231,255,0.5)); }
+.bar-fill.purple { background: linear-gradient(90deg, var(--accent2), rgba(167,139,250,0.5)); }
+.bar-fill.green { background: linear-gradient(90deg, var(--accent3), rgba(52,211,153,0.5)); }
+.bar-fill.yellow { background: linear-gradient(90deg, var(--warn), rgba(251,191,36,0.5)); }
+.bar-fill.animated { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════════════
+   CERTIFICATES
+   ═══════════════════════════════════════════════ */
+#certificates { background: var(--bg); }
+
+/* Filters */
+.cert-filters {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 40px;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-family: var(--font-body);
+  font-size: 0.82rem; font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent); color: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Certificate grid */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+.cert-card:hover { transform: translateY(-6px); box-shadow: var(--shadow), var(--glow-blue); border-color: var(--border-bright); }
+
+/* ── CERTIFICATE IMAGE AREA ──
+   Each cert-img-wrap is a 16:9 ratio container.
+   TO ADD YOUR CERTIFICATE: replace the placeholder div with:
+   <img src="path/to/cert.jpg" alt="Certificate Name" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+   For A4 Landscape images, object-position:center top works great.
+   OR embed a Google Drive image link:
+   <img src="https://drive.google.com/uc?id=YOUR_FILE_ID" ...>
+*/
+.cert-img-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg3);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.cert-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s;
+}
+.cert-card:hover .cert-img-wrap img { transform: scale(1.05); }
+
+/* Placeholder shown when no image is set */
+.cert-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--bg3), var(--surface));
+}
+.cert-placeholder-icon { color: var(--text3); opacity: 0.5; }
+.cert-placeholder-text { font-size: 0.75rem; color: var(--text3); text-align: center; padding: 0 12px; }
+
+.cert-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,10,15,0.9) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 16px;
+}
+.cert-card:hover .cert-overlay { opacity: 1; }
+.cert-overlay-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 16px;
+  background: var(--accent); color: var(--bg);
+  border-radius: 100px; font-size: 0.78rem; font-weight: 600;
+  border: none; cursor: pointer;
+}
+
+.cert-info { padding: 16px; }
+.cert-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+.cert-meta { display: flex; justify-content: space-between; align-items: center; }
+.cert-issuer { font-size: 0.75rem; color: var(--text3); }
+.cert-tag {
+  font-size: 0.7rem; font-weight: 600; padding: 3px 10px;
+  border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.cert-tag.tech { background: rgba(110,231,255,0.1); color: var(--accent); }
+.cert-tag.design { background: rgba(167,139,250,0.1); color: var(--accent2); }
+.cert-tag.business { background: rgba(251,191,36,0.1); color: var(--warn); }
+.cert-tag.data { background: rgba(52,211,153,0.1); color: var(--accent3); }
+
+/* Lightbox */
+#lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+#lightbox.open { display: flex; }
+.lightbox-content {
+  position: relative; max-width: 900px; width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  animation: lb-in 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes lb-in {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+#lb-img-wrap { width: 100%; aspect-ratio: 16/9; background: var(--bg3); display:flex; align-items:center; justify-content:center; }
+#lb-img { width: 100%; height: 100%; object-fit: contain; }
+#lb-info { padding: 24px; display: flex; justify-content: space-between; align-items: center; }
+#lb-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
+#lb-issuer { font-size: 0.85rem; color: var(--text3); margin-top: 4px; }
+.lb-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text2);
+  transition: all 0.2s; z-index: 10;
+}
+.lb-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
+/* Show More */
+.show-more-wrap { text-align: center; margin-top: 40px; }
+
+/* ═══════════════════════════════════════════════
+   PROJECTS
+   ═══════════════════════════════════════════════ */
+#projects { background: var(--bg2); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: all 0.35s;
+  display: flex; flex-direction: column;
+}
+.project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: rgba(110,231,255,0.2); }
+
+/* ── PROJECT DEMO VIDEO / SCREENSHOT ──
+   Replace .project-thumb placeholder with:
+   For video: <video src="demo.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover">
+   For image: <img src="screenshot.png" style="width:100%;height:100%;object-fit:cover">
+*/
+.project-thumb {
+  width: 100%; height: 200px;
+  background: var(--bg3);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.project-thumb-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--text3); font-size: 0.8rem; text-align: center; padding: 0 20px;
+}
+.project-thumb-placeholder i { opacity: 0.4; }
+
+.project-thumb video, .project-thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+.project-card:hover .project-thumb video,
+.project-card:hover .project-thumb img { transform: scale(1.04); }
+
+.project-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(8,10,15,0.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--border-bright);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 0.7rem; color: var(--text2); font-weight: 600;
+}
+
+.project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.project-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.project-desc { font-size: 0.875rem; color: var(--text2); line-height: 1.65; margin-bottom: 16px; flex: 1; }
+
+.project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.tech-pill {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.72rem; color: var(--text3); font-weight: 500;
+}
+
+.project-links { display: flex; gap: 10px; }
+.project-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--r);
+  font-size: 0.8rem; font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+.project-link:hover { border-color: rgba(255,255,255,0.2); color: var(--text); background: var(--surface2); }
+.project-link.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.project-link.primary:hover { box-shadow: 0 0 20px rgba(110,231,255,0.3); }
+
+/* ═══════════════════════════════════════════════
+   IDEATION GALLERY
+   ═══════════════════════════════════════════════ */
+#ideas { background: var(--bg); }
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.idea-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.idea-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.idea-card:hover { border-color: var(--border-bright); transform: translateY(-5px); box-shadow: var(--shadow); }
+.idea-card:hover::before { opacity: 1; }
+.idea-card[data-color="blue"]::before { background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+.idea-card[data-color="purple"]::before { background: linear-gradient(90deg, transparent, var(--accent2), transparent); }
+.idea-card[data-color="green"]::before { background: linear-gradient(90deg, transparent, var(--accent3), transparent); }
+.idea-card[data-color="yellow"]::before { background: linear-gradient(90deg, transparent, var(--warn), transparent); }
+.idea-card[data-color="pink"]::before { background: linear-gradient(90deg, transparent, #f472b6, transparent); }
+
+.idea-icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+.idea-card:hover .idea-icon-wrap { transform: scale(1.1) rotate(-3deg); }
+
+.idea-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+.idea-brief { font-size: 0.875rem; color: var(--text2); line-height: 1.65; margin-bottom: 20px; }
+
+.idea-skills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+.idea-skill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.72rem; color: var(--text3); font-weight: 500;
+}
+
+.idea-card-actions { display: flex; gap: 10px; }
+.idea-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  border-radius: var(--r);
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+.idea-btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--text2);
+}
+.idea-btn-outline:hover { background: var(--surface2); color: var(--text); }
+.idea-btn-collab {
+  background: var(--accent);
+  color: var(--bg);
+}
+.idea-btn-collab:hover { box-shadow: 0 0 20px rgba(110,231,255,0.3); }
+
+/* Idea Modal */
+#idea-modal {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(16px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+#idea-modal.open { display: flex; }
+
+.idea-modal-content {
+  position: relative;
+  max-width: 700px; width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 24px;
+  overflow: hidden;
+  animation: lb-in 0.3s cubic-bezier(0.16,1,0.3,1);
+  max-height: 90vh; overflow-y: auto;
+}
+.idea-modal-header {
+  padding: 36px 36px 0;
+  position: sticky; top: 0;
+  background: var(--surface);
+  z-index: 2;
+}
+.idea-modal-icon-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.idea-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.idea-modal-tagline { font-size: 1rem; color: var(--text2); margin-bottom: 0; }
+.idea-modal-body { padding: 28px 36px 36px; }
+.idea-modal-section { margin-bottom: 28px; }
+.idea-modal-section-title {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text3); font-weight: 600; margin-bottom: 12px;
+}
+.idea-modal-text { font-size: 0.9rem; color: var(--text2); line-height: 1.75; }
+.idea-modal-footer {
+  padding: 24px 36px;
+  border-top: 1px solid var(--border);
+  background: var(--bg3);
+  display: flex; gap: 14px; align-items: center;
+}
+.idea-cta {
+  flex: 1; text-align: center;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none; border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.9rem; font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.idea-cta:hover { box-shadow: 0 0 30px rgba(110,231,255,0.4); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════ */
+#contact { background: var(--bg2); }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+}
+
+.contact-info { }
+.contact-intro { font-size: 1rem; color: var(--text2); line-height: 1.75; margin-bottom: 40px; }
+
+.contact-methods { display: flex; flex-direction: column; gap: 16px; }
+.contact-method {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-method:hover { border-color: var(--border-bright); background: var(--surface2); }
+.contact-method-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-method-title { font-size: 0.82rem; color: var(--text3); font-weight: 500; }
+.contact-method-value { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+
+/* Form */
+.contact-form { }
+.form-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 28px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.form-label { font-size: 0.8rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; }
+.form-input, .form-textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  outline: none;
+  width: 100%;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(110,231,255,0.1);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
+.form-textarea { resize: vertical; min-height: 140px; }
+
+.form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--r);
+  font-family: var(--font-body);
+  font-size: 0.95rem; font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 8px;
+}
+.form-submit:hover { box-shadow: 0 0 30px rgba(110,231,255,0.35); transform: translateY(-2px); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.form-success {
+  display: none;
+  text-align: center; padding: 40px;
+  color: var(--accent3);
+  font-size: 1rem;
+}
+.form-success i { display: block; margin: 0 auto 16px; }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════ */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+  position: relative; z-index: 1;
+}
+.footer-brand {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: var(--text2);
+}
+.footer-brand span { color: var(--accent); }
+.footer-copy { font-size: 0.82rem; color: var(--text3); }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3); transition: all 0.2s; cursor: pointer;
+  text-decoration: none;
+}
+.footer-social:hover { color: var(--accent); border-color: rgba(110,231,255,0.3); background: rgba(110,231,255,0.06); }
+
+/* ═══════════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ═══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+  #hero { padding: 80px 20px 60px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-card { display: none; }
+  .hero-stats { gap: 20px; }
+  .section-inner { padding: 60px 20px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 30px 20px; }
+}
+
+/* Mobile nav menu */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: rgba(8,10,15,0.97); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 32px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 700;
+  color: var(--text); text-decoration: none;
+  transition: color 0.2s;
+}
+.mobile-nav a:hover { color: var(--accent); }
+.mobile-nav-close { position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--text2); }
+
+/* ═══════════════════════════════════════════════
+   IDEA COLORS
+   ═══════════════════════════════════════════════ */
+.idea-icon-blue { background: rgba(110,231,255,0.1); color: var(--accent); }
+.idea-icon-purple { background: rgba(167,139,250,0.1); color: var(--accent2); }
+.idea-icon-green { background: rgba(52,211,153,0.1); color: var(--accent3); }
+.idea-icon-yellow { background: rgba(251,191,36,0.1); color: var(--warn); }
+.idea-icon-pink { background: rgba(244,114,182,0.1); color: #f472b6; }
+</style>
+</head>
+
+<body>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span>&lt;</span>Aditya Pratap Singh<span>/&gt;</span>
+  </a>
+  <!-- ↑ REPLACE "YourName" with your actual name -->
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#ideas">Ideas</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMobileNav()" id="hamburger-btn">
+    <i data-lucide="menu" width="24" height="24"></i>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-close" onclick="toggleMobileNav()">
+    <i data-lucide="x" width="28" height="28"></i>
+  </div>
+  <a href="#skills" onclick="toggleMobileNav()">Skills</a>
+  <a href="#certificates" onclick="toggleMobileNav()">Certificates</a>
+  <a href="#projects" onclick="toggleMobileNav()">Projects</a>
+  <a href="#ideas" onclick="toggleMobileNav()">Ideas</a>
+  <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <!-- Floating orbs -->
+  <div class="orb" style="width:600px;height:600px;background:rgba(110,231,255,0.05);top:-200px;left:-150px;animation-duration:10s;"></div>
+  <div class="orb" style="width:400px;height:400px;background:rgba(167,139,250,0.07);bottom:-100px;right:-100px;animation-duration:14s;animation-delay:-4s;"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge reveal">
+        <div class="dot"></div>
+        Open to Opportunities
+      </div>
+      <h1 class="hero-name reveal reveal-delay-1">
+        <!-- ↓ REPLACE "Your" and "Name Here" with your actual first and last name -->
+        Aditya<br><span class="line2">Pratap Singh</span>
+      </h1>
+      <p class="hero-title reveal reveal-delay-2">
+        <!-- ↓ REPLACE with your actual role/title -->
+        Coder, Innovator &amp; <strong>a Creative Technologist</strong>
+      </p>
+      <p class="hero-desc reveal reveal-delay-3">
+        <!-- ↓ REPLACE with your actual bio/description -->
+        I craft digital experiences that live at the intersection of design and engineering.
+        With a passion for clean code and bold ideas, I turn complex problems into elegant solutions.
+      </p>
+      <div class="hero-actions reveal reveal-delay-4">
+        <a href="#projects" class="btn btn-primary">
+          <i data-lucide="folder-open" width="16" height="16"></i>
+          View Projects
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <i data-lucide="mail" width="16" height="16"></i>
+          Get in Touch
+        </a>
+      </div>
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="stat-item">
+          <!-- ↓ UPDATE these numbers to your real stats -->
+          <div class="stat-num">60<span>+</span></div>
+          <div class="stat-label">Certificates</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">20<span>+</span></div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Years Exp.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card reveal reveal-delay-2">
+      <div class="hero-avatar">
+        <img src="images/your-photo.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover"> 
+      </div>
+      <!-- ↓ REPLACE with your name and role -->
+      <div class="hero-card-name">Aditya Pratap Singh</div>
+      <div class="hero-card-role">Coder, Innovator &amp; Creative Technologist</div>
+      <div class="skill-chips">
+        <!-- ↓ REPLACE these chips with your actual skills -->
+        <span class="chip">React</span>
+        <span class="chip">Node.js</span>
+        <span class="chip">Python</span>
+        <span class="chip">UI/UX</span>
+        <span class="chip">ML & AI</span>
+        <span class="chip">Cloud</span>
+      </div>
+      <div class="availability">
+        <div class="avail-dot"></div>
+        Available for freelance &amp; collab
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════ SKILLS ════════════════════ -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag reveal">Expertise</div>
+    <h2 class="section-title reveal reveal-delay-1">Skills &amp; Proficiency</h2>
+    <p class="section-sub reveal reveal-delay-2">
+      <!-- ↓ REPLACE with your own skills description -->
+      A versatile toolkit built through hands-on projects, continuous learning, and real-world application across diverse domains.
+    </p>
+
+    <div class="skills-grid">
+      <!-- SKILL CARD 1 — Frontend Development -->
+      <!-- ↓ UPDATE the skill names and percentages to match your actual skill levels -->
+      <div class="skill-card blue reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon blue">
+            <i data-lucide="monitor" width="20" height="20"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Frontend Dev</div>
+            <div class="skill-card-subtitle">UI / Interfaces</div>
+          </div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">HTML &amp; CSS</span><span class="skill-bar-pct">90%</span></div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">JavaScript / TypeScript</span><span class="skill-bar-pct">60%</span></div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:60%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">React / Next.js</span><span class="skill-bar-pct">70%</span></div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:70%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Tailwind CSS</span><span class="skill-bar-pct">80%</span></div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:80%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL CARD 2 — Backend Development -->
+      <div class="skill-card purple reveal reveal-delay-1">
+        <div class="skill-card-header">
+          <div class="skill-icon purple">
+            <i data-lucide="server" width="20" height="20"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Backend Dev</div>
+            <div class="skill-card-subtitle">APIs / Databases</div>
+          </div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Python / FastAPI</span><span class="skill-bar-pct">80%</span></div>
+            <div class="bar-track"><div class="bar-fill purple" style="width:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Node.js / Express</span><span class="skill-bar-pct">40%</span></div>
+            <div class="bar-track"><div class="bar-fill purple" style="width:40%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">SQL / PostgreSQL</span><span class="skill-bar-pct">60%</span></div>
+            <div class="bar-track"><div class="bar-fill purple" style="width:60%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">REST / GraphQL APIs</span><span class="skill-bar-pct">70%</span></div>
+            <div class="bar-track"><div class="bar-fill purple" style="width:70%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL CARD 3 — AI / ML -->
+      <div class="skill-card green reveal reveal-delay-2">
+        <div class="skill-card-header">
+          <div class="skill-icon green">
+            <i data-lucide="brain" width="20" height="20"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">AI / ML</div>
+            <div class="skill-card-subtitle">Models / Data Science</div>
+          </div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Machine Learning</span><span class="skill-bar-pct">75%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:75%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">TensorFlow / PyTorch</span><span class="skill-bar-pct">65%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:65%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Data Analysis (Pandas)</span><span class="skill-bar-pct">70%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:70%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">LLM / Prompt Eng.</span><span class="skill-bar-pct">90%</span></div>
+            <div class="bar-track"><div class="bar-fill green" style="width:90%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL CARD 4 — Design & Tools -->
+      <div class="skill-card yellow reveal reveal-delay-3">
+        <div class="skill-card-header">
+          <div class="skill-icon yellow">
+            <i data-lucide="pen-tool" width="20" height="20"></i>
+          </div>
+          <div>
+            <div class="skill-card-title">Design &amp; DevOps</div>
+            <div class="skill-card-subtitle">Tools / Workflow</div>
+          </div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Figma / UI Design</span><span class="skill-bar-pct">60%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:60%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Git / GitHub</span><span class="skill-bar-pct">80%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">Docker / CI-CD</span><span class="skill-bar-pct">35%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:35%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-meta"><span class="skill-bar-name">AWS / Cloud</span><span class="skill-bar-pct">50%</span></div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:50%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════ CERTIFICATES ════════════════════ -->
+<section id="certificates">
+  <div class="section-inner">
+    <div class="section-tag reveal">Achievements</div>
+    <h2 class="section-title reveal reveal-delay-1">60+ Certificates</h2>
+    <p class="section-sub reveal reveal-delay-2">
+      A growing collection of certifications from industry-leading platforms, reflecting commitment to continuous learning.
+    </p>
+
+    <div class="cert-filters reveal">
+      <button class="filter-btn active" onclick="filterCerts('all', this)">All</button>
+      <button class="filter-btn" onclick="filterCerts('tech', this)">Tech</button>
+      <button class="filter-btn" onclick="filterCerts('data', this)">Data &amp; AI</button>
+      <button class="filter-btn" onclick="filterCerts('design', this)">Design</button>
+      <button class="filter-btn" onclick="filterCerts('business', this)">Business</button>
+    </div>
+
+    <div class="cert-grid" id="cert-grid">
+
+      <!-- ══════════════════════════════════════════════════════════
+           FILE STRUCTURE EXPECTED IN YOUR GITHUB REPO:
+           images/1.jpg, images/2.jpg ... images/15.jpg (and beyond)
+           
+           TO ADD MORE: duplicate any card below, increment the image
+           number, and update name/issuer/category/tag accordingly.
+           
+           TO CHANGE CATEGORY: set data-category to one of:
+           tech | data | design | business
+           and match the cert-tag class + text.
+      ══════════════════════════════════════════════════════════ -->
+
+      <!-- CERT 1 -->
+      <div class="cert-card reveal" data-category="tech"
+           onclick="openLightbox('images/1.jpg', 'Certificate Title 1', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/1.jpg" alt="Certificate 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/1.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 1</div><!-- ↓ UPDATE name -->
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span><!-- ↓ UPDATE issuer & year -->
+            <span class="cert-tag tech">Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 2 -->
+      <div class="cert-card reveal reveal-delay-1" data-category="data"
+           onclick="openLightbox('images/2.jpg', 'Certificate Title 2', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/2.jpg" alt="Certificate 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/2.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 2</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag data">Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 3 -->
+      <div class="cert-card reveal reveal-delay-2" data-category="design"
+           onclick="openLightbox('images/3.jpg', 'Certificate Title 3', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/3.jpg" alt="Certificate 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/3.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 3</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag design">Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 4 -->
+      <div class="cert-card reveal reveal-delay-3" data-category="business"
+           onclick="openLightbox('images/4.jpg', 'Certificate Title 4', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/4.jpg" alt="Certificate 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/4.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 4</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag business">Business</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 5 -->
+      <div class="cert-card reveal" data-category="tech"
+           onclick="openLightbox('images/5.jpg', 'Certificate Title 5', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/5.jpg" alt="Certificate 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/5.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 5</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag tech">Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 6 -->
+      <div class="cert-card reveal reveal-delay-1" data-category="data"
+           onclick="openLightbox('images/6.jpg', 'Certificate Title 6', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/6.jpg" alt="Certificate 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/6.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 6</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag data">Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 7 -->
+      <div class="cert-card reveal reveal-delay-2" data-category="tech"
+           onclick="openLightbox('images/7.jpg', 'Certificate Title 7', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/7.jpg" alt="Certificate 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/7.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 7</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag tech">Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 8 -->
+      <div class="cert-card reveal reveal-delay-3" data-category="design"
+           onclick="openLightbox('images/8.jpg', 'Certificate Title 8', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/8.jpg" alt="Certificate 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/8.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 8</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag design">Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 9 -->
+      <div class="cert-card reveal" data-category="business"
+           onclick="openLightbox('images/9.jpg', 'Certificate Title 9', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/9.jpg" alt="Certificate 9" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/9.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 9</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag business">Business</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 10 -->
+      <div class="cert-card reveal reveal-delay-1" data-category="data"
+           onclick="openLightbox('images/10.jpg', 'Certificate Title 10', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/10.jpg" alt="Certificate 10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/10.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 10</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag data">Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 11 -->
+      <div class="cert-card reveal reveal-delay-2" data-category="tech"
+           onclick="openLightbox('images/11.jpg', 'Certificate Title 11', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/11.jpg" alt="Certificate 11" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/11.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 11</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag tech">Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 12 -->
+      <div class="cert-card reveal reveal-delay-3" data-category="design"
+           onclick="openLightbox('images/12.jpg', 'Certificate Title 12', 'Issuer Platform · 2023')">
+        <div class="cert-img-wrap">
+          <img src="images/12.jpg" alt="Certificate 12" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/12.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 12</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2023</span>
+            <span class="cert-tag design">Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 13 -->
+      <div class="cert-card reveal" data-category="business"
+           onclick="openLightbox('images/13.jpg', 'Certificate Title 13', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/13.jpg" alt="Certificate 13" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/13.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 13</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag business">Business</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 14 -->
+      <div class="cert-card reveal reveal-delay-1" data-category="data"
+           onclick="openLightbox('images/14.jpg', 'Certificate Title 14', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/14.jpg" alt="Certificate 14" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/14.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 14</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag data">Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERT 15 -->
+      <div class="cert-card reveal reveal-delay-2" data-category="tech"
+           onclick="openLightbox('images/15.jpg', 'Certificate Title 15', 'Issuer Platform · 2024')">
+        <div class="cert-img-wrap">
+          <img src="images/15.jpg" alt="Certificate 15" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="cert-placeholder" style="display:none">
+            <i data-lucide="award" width="36" height="36" class="cert-placeholder-icon"></i>
+            <div class="cert-placeholder-text">images/15.jpg</div>
+          </div>
+          <div class="cert-overlay">
+            <button class="cert-overlay-btn"><i data-lucide="zoom-in" width="13" height="13"></i> View</button>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Certificate Title 15</div>
+          <div class="cert-meta">
+            <span class="cert-issuer">Issuer · 2024</span>
+            <span class="cert-tag tech">Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TO ADD CERT 16+: copy any block above, increment the number ══ -->
+
+    </div><!-- /cert-grid -->
+
+    <div class="show-more-wrap reveal">
+      <p style="color:var(--text3);font-size:0.85rem;margin-bottom:16px;">
+        Showing 15 of 60+ certificates
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Certificate Lightbox -->
+<div id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-content">
+    <div class="lb-close" onclick="closeLightbox()">
+      <i data-lucide="x" width="16" height="16"></i>
+    </div>
+    <div id="lb-img-wrap">
+      <!-- If no src is set, show placeholder -->
+      <img id="lb-img" src="" alt="" style="display:none">
+      <div id="lb-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--text3);">
+        <i data-lucide="award" width="48" height="48" style="opacity:0.3"></i>
+        <span style="font-size:0.85rem">Certificate preview</span>
+      </div>
+    </div>
+    <div id="lb-info">
+      <div>
+        <div id="lb-name" style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;"></div>
+        <div id="lb-issuer" style="font-size:0.85rem;color:var(--text3);margin-top:4px;"></div>
+      </div>
+      <a id="lb-download" href="#" style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;font-size:0.8rem;color:var(--text2);text-decoration:none;">
+        <i data-lucide="download" width="14" height="14"></i> Download
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════ PROJECTS ════════════════════ -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag reveal">Portfolio</div>
+    <h2 class="section-title reveal reveal-delay-1">Featured Projects</h2>
+    <p class="section-sub reveal reveal-delay-2">
+      A selection of projects I've built — each one a story of problem-solving, creativity, and technical craft.
+    </p>
+
+    <div class="projects-grid">
+
+      <!-- ══════════════════════════════════════════════════
+           HOW TO ADD YOUR PROJECTS:
+           
+           1. Replace .project-thumb-placeholder with:
+              - For video demo: <video src="demo.mp4" autoplay loop muted playsinline>
+              - For screenshot: <img src="screenshot.png" alt="Project Name">
+              - For YouTube embed: use a thumbnail <img> with a play overlay
+           
+           2. Update: project-title, project-desc, tech-pills
+           
+           3. Update links:
+              - GitHub: href="https://github.com/yourusername/repo"
+              - Live:   href="https://your-project.com"
+           
+           4. Update project-badge text (e.g., "Web App", "ML", "Mobile")
+      ══════════════════════════════════════════════════ -->
+
+      <!-- PROJECT 1 -->
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <!-- ↓ REPLACE with your project video or screenshot -->
+          <div class="project-thumb-placeholder">
+            <i data-lucide="monitor-play" width="40" height="40"></i>
+            <span><video src="videos/1.mp4" autoplay loop muted playsinline></video></span>
+          </div>
+          <div class="project-badge">Web App</div><!-- ↓ UPDATE category -->
+        </div>
+        <div class="project-body">
+          <div class="project-title">EduConnect</div><!-- ↓ UPDATE -->
+          <div class="project-desc">
+            <!-- ↓ UPDATE with your actual project description -->
+            An educational social media platform for connecting students worldwide and providing shared learning experiences.
+          </div>
+          <div class="project-tech">
+            <!-- ↓ UPDATE with your actual tech stack -->
+            <span class="tech-pill">Vite-React</span>
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">JSON</span>
+            <span class="tech-pill">Python</span>
+          </div>
+          <div class="project-links">
+            <!-- ↓ UPDATE href values with your actual GitHub and live links -->
+            <a href="https://github.com/adps62823-lgtm/EduConnect" target="_blank" class="project-link">
+              <i data-lucide="github" width="14" height="14"></i> GitHub
+            </a>
+            <a href="https://my-edu-connect.vercel.app" target="_blank" class="project-link primary">
+              <i data-lucide="external-link" width="14" height="14"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-thumb">
+          <div class="project-thumb-placeholder">
+            <i data-lucide="monitor-play" width="40" height="40"></i>
+            <span><video src="videos/2.mp4" autoplay loop muted playsinline></video></span>
+          </div>
+          <div class="project-badge">AI / ML</div>
+        </div>
+        <div class="project-body">
+          <div class="project-title">DRISHTI</div>
+          <div class="project-desc">
+            A Computer Vision based visual aid made for visually impaired people to help them visualize their surroundings through real-time object recognition and audio feedback.
+          </div>
+          <div class="project-tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">YOLOv8</span>
+            <span class="tech-pill">OpenCV</span>
+            <span class="tech-pill">Flask</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/adps62823-lgtm/drishti-demo" target="_blank" class="project-link">
+              <i data-lucide="github" width="14" height="14"></i> GitHub
+            </a>
+            <a href="https://drishti-demo.vercel.app" target="_blank" class="project-link primary">
+              <i data-lucide="external-link" width="14" height="14"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-thumb">
+          <div class="project-thumb-placeholder">
+            <i data-lucide="monitor-play" width="40" height="40"></i>
+            <span>Add project demo video or screenshot</span>
+          </div>
+          <div class="project-badge">Mobile</div>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Project Name Three</div>
+          <div class="project-desc">
+            Write about your mobile app or third project. What makes it unique? What user problem does it solve elegantly?
+          </div>
+          <div class="project-tech">
+            <span class="tech-pill">React Native</span>
+            <span class="tech-pill">Firebase</span>
+            <span class="tech-pill">Redux</span>
+            <span class="tech-pill">Gemini</span>
+            <span class="tech-pill">TradingView</span>
+          </div>
+            <p class="project-link primary"> Under Development </p> <span><a href="contact" class="idea-btn idea-btn-collab">Want to collaborate?</a></span>
+          </div>
+        </div>
+      </div>
+
+
+<!-- ════════════════════ IDEATION GALLERY ════════════════════ -->
+<section id="ideas">
+  <div class="section-inner">
+    <div class="section-tag reveal">Ideation Lab</div>
+    <h2 class="section-title reveal reveal-delay-1">Ideas Seeking Collaborators</h2>
+    <p class="section-sub reveal reveal-delay-2">
+      Concepts I'm passionate about building. Each idea is at different stages — from raw concept to validated vision. Looking for the right people to bring them to life.
+    </p>
+
+    <div class="ideas-grid">
+
+      <!-- IDEA 1 — AI Health Coach -->
+      <div class="idea-card reveal" data-color="blue" data-idea="0">
+        <div class="idea-icon-wrap idea-icon-blue">
+          <i data-lucide="heart-pulse" width="24" height="24"></i>
+        </div>
+        <div class="idea-title">AI Personal Health Coach</div>
+        <div class="idea-brief">
+          A hyper-personalized health companion that learns your body's patterns through wearable data, food intake, and mood tracking — then gives you truly individualized advice, not generic tips.
+        </div>
+        <div class="idea-skills-row">
+          <span class="idea-skill"><i data-lucide="code-2" width="10" height="10"></i> ML / AI</span>
+          <span class="idea-skill"><i data-lucide="smartphone" width="10" height="10"></i> Mobile Dev</span>
+          <span class="idea-skill"><i data-lucide="database" width="10" height="10"></i> Healthcare Data</span>
+          <span class="idea-skill"><i data-lucide="pen-tool" width="10" height="10"></i> UX Design</span>
+        </div>
+        <div class="idea-card-actions">
+          <button class="idea-btn idea-btn-outline" onclick="openIdeaModal(0, event)">
+            <i data-lucide="eye" width="14" height="14"></i> Know More
+          </button>
+          <button class="idea-btn idea-btn-collab" onclick="scrollToContact()">
+            <i data-lucide="handshake" width="14" height="14"></i> Collaborate
+          </button>
+        </div>
+      </div>
+
+      <!-- IDEA 2 — EdTech Platform -->
+      <div class="idea-card reveal reveal-delay-1" data-color="purple" data-idea="1">
+        <div class="idea-icon-wrap idea-icon-purple">
+          <i data-lucide="graduation-cap" width="24" height="24"></i>
+        </div>
+        <div class="idea-title">Peer-to-Peer Skill Exchange</div>
+        <div class="idea-brief">
+          A marketplace where people trade skills instead of money. You teach what you know, and earn credits to learn what you don't. No subscriptions, no gatekeeping — just human knowledge flowing freely.
+        </div>
+        <div class="idea-skills-row">
+          <span class="idea-skill"><i data-lucide="globe" width="10" height="10"></i> Full-Stack Dev</span>
+          <span class="idea-skill"><i data-lucide="video" width="10" height="10"></i> Live Streaming</span>
+          <span class="idea-skill"><i data-lucide="shield" width="10" height="10"></i> Trust & Safety</span>
+          <span class="idea-skill"><i data-lucide="users" width="10" height="10"></i> Community</span>
+        </div>
+        <div class="idea-card-actions">
+          <button class="idea-btn idea-btn-outline" onclick="openIdeaModal(1, event)">
+            <i data-lucide="eye" width="14" height="14"></i> Know More
+          </button>
+          <button class="idea-btn idea-btn-collab" onclick="scrollToContact()">
+            <i data-lucide="handshake" width="14" height="14"></i> Collaborate
+          </button>
+        </div>
+      </div>
+
+      <!-- IDEA 3 — Smart City -->
+      <div class="idea-card reveal reveal-delay-2" data-color="green" data-idea="2">
+        <div class="idea-icon-wrap idea-icon-green">
+          <i data-lucide="map-pin" width="24" height="24"></i>
+        </div>
+        <div class="idea-title">HyperLocal Community OS</div>
+        <div class="idea-brief">
+          A civic tech platform for neighborhoods — report local issues, organize community events, pool resources, and hold local representatives accountable. Democracy at the street level.
+        </div>
+        <div class="idea-skills-row">
+          <span class="idea-skill"><i data-lucide="map" width="10" height="10"></i> GIS / Maps</span>
+          <span class="idea-skill"><i data-lucide="bell" width="10" height="10"></i> Real-time</span>
+          <span class="idea-skill"><i data-lucide="smartphone" width="10" height="10"></i> PWA</span>
+          <span class="idea-skill"><i data-lucide="shield" width="10" height="10"></i> Civic Tech</span>
+        </div>
+        <div class="idea-card-actions">
+          <button class="idea-btn idea-btn-outline" onclick="openIdeaModal(2, event)">
+            <i data-lucide="eye" width="14" height="14"></i> Know More
+          </button>
+          <button class="idea-btn idea-btn-collab" onclick="scrollToContact()">
+            <i data-lucide="handshake" width="14" height="14"></i> Collaborate
+          </button>
+        </div>
+      </div>
+
+      <!-- IDEA 4 — Finance -->
+      <div class="idea-card reveal reveal-delay-3" data-color="yellow" data-idea="3">
+        <div class="idea-icon-wrap idea-icon-yellow">
+          <i data-lucide="trending-up" width="24" height="24"></i>
+        </div>
+        <div class="idea-title">Micro-Investment Club Platform</div>
+        <div class="idea-brief">
+          Group investing made simple — form a club with friends, pool small amounts, vote on investments together, and split returns. Gamified financial literacy meets real portfolio management.
+        </div>
+        <div class="idea-skills-row">
+          <span class="idea-skill"><i data-lucide="banknote" width="10" height="10"></i> FinTech</span>
+          <span class="idea-skill"><i data-lucide="lock" width="10" height="10"></i> Compliance</span>
+          <span class="idea-skill"><i data-lucide="bar-chart-2" width="10" height="10"></i> Finance API</span>
+          <span class="idea-skill"><i data-lucide="users" width="10" height="10"></i> Social</span>
+        </div>
+        <div class="idea-card-actions">
+          <button class="idea-btn idea-btn-outline" onclick="openIdeaModal(3, event)">
+            <i data-lucide="eye" width="14" height="14"></i> Know More
+          </button>
+          <button class="idea-btn idea-btn-collab" onclick="scrollToContact()">
+            <i data-lucide="handshake" width="14" height="14"></i> Collaborate
+          </button>
+        </div>
+      </div>
+
+      <!-- IDEA 5 — Sustainability -->
+      <div class="idea-card reveal" data-color="pink" data-idea="4">
+        <div class="idea-icon-wrap idea-icon-pink">
+          <i data-lucide="leaf" width="24" height="24"></i>
+        </div>
+        <div class="idea-title">Carbon Footprint Social Network</div>
+        <div class="idea-brief">
+          Make sustainability social and competitive. Track your personal carbon footprint, challenge friends, join city-wide pledges, and unlock rewards for eco-friendly choices. Climate action through community.
+        </div>
+        <div class="idea-skills-row">
+          <span class="idea-skill"><i data-lucide="activity" width="10" height="10"></i> IoT Data</span>
+          <span class="idea-skill"><i data-lucide="trophy" width="10" height="10"></i> Gamification</span>
+          <span class="idea-skill"><i data-lucide="globe" width="10" height="10"></i> Full-Stack</span>
+          <span class="idea-skill"><i data-lucide="leaf" width="10" height="10"></i> Sustainability</span>
+        </div>
+        <div class="idea-card-actions">
+          <button class="idea-btn idea-btn-outline" onclick="openIdeaModal(4, event)">
+            <i data-lucide="eye" width="14" height="14"></i> Know More
+          </button>
+          <button class="idea-btn idea-btn-collab" onclick="scrollToContact()">
+            <i data-lucide="handshake" width="14" height="14"></i> Collaborate
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Idea Detail Modal -->
+<div id="idea-modal" onclick="closeIdeaModalOnBg(event)">
+  <div class="idea-modal-content" id="idea-modal-content">
+    <div class="idea-modal-header">
+      <div class="idea-modal-icon-row">
+        <div id="modal-icon-wrap" class="idea-icon-wrap" style="width:56px;height:56px;border-radius:16px;"></div>
+        <div class="lb-close" onclick="closeIdeaModal()">
+          <i data-lucide="x" width="16" height="16"></i>
+        </div>
+      </div>
+      <div id="modal-title" class="idea-modal-title"></div>
+      <div id="modal-tagline" class="idea-modal-tagline"></div>
+    </div>
+    <div class="idea-modal-body">
+      <div class="idea-modal-section">
+        <div class="idea-modal-section-title">The Problem</div>
+        <div id="modal-problem" class="idea-modal-text"></div>
+      </div>
+      <div class="idea-modal-section">
+        <div class="idea-modal-section-title">The Solution</div>
+        <div id="modal-solution" class="idea-modal-text"></div>
+      </div>
+      <div class="idea-modal-section">
+        <div class="idea-modal-section-title">Why Now</div>
+        <div id="modal-why" class="idea-modal-text"></div>
+      </div>
+      <div class="idea-modal-section">
+        <div class="idea-modal-section-title">Skills Needed to Build This</div>
+        <div id="modal-skills" class="idea-skills-row" style="margin-bottom:0"></div>
+      </div>
+      <div class="idea-modal-section">
+        <div class="idea-modal-section-title">Stage</div>
+        <div id="modal-stage" class="idea-modal-text"></div>
+      </div>
+    </div>
+    <div class="idea-modal-footer">
+      <div style="font-size:0.85rem;color:var(--text2);">Interested in building this together?</div>
+      <button class="idea-cta" onclick="scrollToContactFromModal()">
+        <i data-lucide="mail" width="16" height="16"></i>
+        Let's Connect &amp; Collaborate
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag reveal">Let's Talk</div>
+    <h2 class="section-title reveal reveal-delay-1">Get in Touch</h2>
+
+    <div class="contact-grid">
+      <!-- Left: Info -->
+      <div>
+        <p class="contact-intro reveal reveal-delay-2">
+          <!-- ↓ REPLACE with your own contact intro -->
+          Whether you have a project in mind, want to collaborate on an idea, offer an opportunity, or just want to say hello — my inbox is always open.
+        </p>
+
+        <div class="contact-methods">
+          <!-- ↓ REPLACE all href and text values with your actual contact details -->
+          <a href="mailto:adps62823@gmail.com" class="contact-method reveal">
+            <div class="contact-method-icon" style="background:rgba(110,231,255,0.1);color:var(--accent);">
+              <i data-lucide="mail" width="20" height="20"></i>
+            </div>
+            <div>
+              <div class="contact-method-title">Email</div>
+              <div class="contact-method-value">adps62823@gmail.com</div>
+              <!-- ↑ REPLACE with your actual email -->
+            </div>
+          </a>
+          <a href="https://github.com/adps62823-lgtm" target="_blank" class="contact-method reveal reveal-delay-2">
+            <div class="contact-method-icon" style="background:rgba(52,211,153,0.1);color:var(--accent3);">
+              <i data-lucide="github" width="20" height="20"></i>
+            </div>
+            <div>
+              <div class="contact-method-title">GitHub</div>
+              <div class="contact-method-value">github.com/adps62823-lgtm</div>
+              <!-- ↑ REPLACE with your actual GitHub URL -->
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <!--
+        ══════════════════════════════════════════════════════════
+        CONTACT FORM — HOW TO RECEIVE EMAILS:
+        
+        Option A (Recommended — FREE): Formspree
+        1. Go to https://formspree.io and create a free account
+        2. Create a new form
+        3. Copy your form endpoint, e.g.: https://formspree.io/f/xyzabcde
+        4. Replace the ACTION_URL in the sendForm() function below
+        
+        Option B: EmailJS
+        1. Go to https://www.emailjs.com
+        2. Set up a service + template
+        3. Replace the sendForm() logic with EmailJS SDK calls
+        
+        The form below is already wired to send to your email via Formspree.
+        ══════════════════════════════════════════════════════════
+      -->
+      <div class="contact-form reveal reveal-delay-1">
+        <div class="form-title">Send a Message</div>
+        <div id="contact-form-wrap">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-input" id="f-name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="f-email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" id="f-subject" placeholder="Project inquiry, collaboration, etc.">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" id="f-message" placeholder="Tell me about your project or idea..."></textarea>
+          </div>
+          <button class="form-submit" id="submit-btn" onclick="sendForm()">
+            <i data-lucide="send" width="16" height="16"></i>
+            Send Message
+          </button>
+        </div>
+        <div class="form-success" id="form-success">
+          <i data-lucide="check-circle-2" width="48" height="48" style="display:block;margin:0 auto 16px;color:var(--accent3);"></i>
+          <strong style="color:var(--text);font-size:1.1rem;">Message sent successfully!</strong><br>
+          <span style="color:var(--text2);">I'll get back to you within 24 hours.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="footer-brand">
+    <!-- ↓ REPLACE "YourName" with your actual name -->
+    &lt;<span>YourName</span>/&gt;
+  </div>
+  <div class="footer-copy">
+    <!-- ↓ REPLACE "Your Name" with your actual name -->
+    © 2025 Your Name · Built with passion
+  </div>
+  <div class="footer-socials">
+    <!-- ↓ REPLACE all href values with your actual social links -->
+    <a href="https://github.com/yourusername" target="_blank" class="footer-social">
+      <i data-lucide="github" width="16" height="16"></i>
+    </a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="footer-social">
+      <i data-lucide="linkedin" width="16" height="16"></i>
+    </a>
+    <a href="https://twitter.com/yourhandle" target="_blank" class="footer-social">
+      <i data-lucide="twitter" width="16" height="16"></i>
+    </a>
+    <a href="mailto:your.email@example.com" class="footer-social">
+      <i data-lucide="mail" width="16" height="16"></i>
+    </a>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════ -->
+<script>
+
+// ── Mobile Nav ──
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+
+// ── Intersection Observer for Reveal + Skill Bars ──
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Animate skill bars inside this element
+      e.target.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.classList.add('animated');
+      });
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Also observe skill cards separately for bar animations
+document.querySelectorAll('.skill-card').forEach(card => {
+  const barIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.classList.add('animated');
+        });
+        barIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  barIo.observe(card);
+});
+
+// ── Certificate Lightbox ──
+function openLightbox(imgSrc, name, issuer) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lb-img');
+  const placeholder = document.getElementById('lb-placeholder');
+  document.getElementById('lb-name').textContent = name;
+  document.getElementById('lb-issuer').textContent = issuer;
+  if (imgSrc) {
+    img.src = imgSrc;
+    img.alt = name;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+    document.getElementById('lb-download').href = imgSrc;
+  } else {
+    img.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  safeCreateIcons();
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+// ── Certificate Filter ──
+function filterCerts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cert-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.category === cat;
+    card.style.display = show ? 'block' : 'none';
+  });
+}
+
+// ── Idea Data ──
+const ideas = [
+  {
+    title: 'AI Personal Health Coach',
+    tagline: 'Personalized wellness intelligence that actually knows you',
+    icon: 'heart-pulse',
+    color: 'blue',
+    iconClass: 'idea-icon-blue',
+    problem: `Most health apps give everyone the same advice. "Drink 8 glasses of water." "Sleep 8 hours." But every body is different. A one-size-fits-all approach ignores the complexity of human physiology, lifestyle variability, and individual responses to diet and exercise. People are overwhelmed with generic information and still don't know what works for their body specifically.`,
+    solution: `An AI coach that ingests data from multiple sources — wearables (sleep, HRV, steps), food logs, mood check-ins, lab results — and builds a dynamic model of your unique physiology. It doesn't just track; it learns correlations specific to you. "Your energy crashes every Tuesday because of what you ate Monday + poor Sunday sleep" — that kind of insight. The interface is conversational, empathetic, and actionable.`,
+    why: `Wearable penetration has hit critical mass. Multimodal LLMs can now reason over health time-series data. Regulatory pathways for wellness (non-medical) AI are clearer than ever. And people have never been more burned out by wellness overwhelm — they want guidance, not more data dashboards.`,
+    skills: ['Machine Learning', 'Mobile Development', 'Healthcare Data Standards', 'UX Research', 'NLP / Conversational AI', 'Wearable APIs'],
+    stage: '🔬 Concept stage — I have a detailed product spec, user research plan, and early wireframes. Looking for a co-founder with ML / healthcare data experience.',
+  },
+  {
+    title: 'Peer-to-Peer Skill Exchange',
+    tagline: 'Trade what you know. Learn what you don\'t.',
+    icon: 'graduation-cap',
+    color: 'purple',
+    iconClass: 'idea-icon-purple',
+    problem: `Education is gatekept by cost and geography. Meanwhile, millions of people have valuable skills they never monetize, and millions more can't afford to learn those skills commercially. The gap between "people who know things" and "people who want to learn things" is artificially maintained by money.`,
+    solution: `A credit-based skill exchange platform. You teach a session → earn credits. Spend credits to learn from someone else. No cash changes hands. Categories span from coding and design to cooking, music, fitness, languages, and crafts. Trust is built through verified sessions, ratings, and community reputation. A matching algorithm finds the best skill-swap partners for you.`,
+    why: `The creator economy has normalized peer teaching. Video infrastructure is cheap. Remote learning is socially accepted post-pandemic. Barter-based systems are having a cultural renaissance. The timing for a values-driven, money-free learning network has never been better.`,
+    skills: ['Full-Stack Development', 'Real-time Video (WebRTC)', 'Recommendation Algorithms', 'Trust & Safety Systems', 'Community Management', 'Payment-less Credit System Design'],
+    stage: '📋 Validated concept — ran a 50-person manual pilot via WhatsApp groups. Proven demand exists. Ready to build MVP. Looking for a full-stack developer and a community growth person.',
+  },
+  {
+    title: 'HyperLocal Community OS',
+    tagline: 'Democracy at the street level',
+    icon: 'map-pin',
+    color: 'green',
+    iconClass: 'idea-icon-green',
+    problem: `Neighborhoods are disconnected. Local issues go unresolved because there's no efficient channel between residents and local governance. Community Facebook groups are chaotic and unstructured. Official channels are slow and bureaucratic. The civic infrastructure for local participation is broken.`,
+    solution: `A geo-fenced civic platform where residents within a defined area can: report local issues with photos + GPS (pothole, broken light, safety hazard), organize events and resource-sharing (tools, childcare, rides), vote on local proposals, and create accountability threads for local elected officials. Integration with municipal APIs where available for automated status updates.`,
+    why: `Smart city initiatives are allocating budgets for citizen engagement technology. PWAs allow offline-first mobile experiences. AI moderation can keep civic discourse constructive. Local government digital transformation is accelerating globally — a platform that plugs into these initiatives has clear B2G (business-to-government) revenue potential.`,
+    skills: ['GIS / Maps API', 'Real-time Notifications', 'Progressive Web App (PWA)', 'Civic Tech / Open Data', 'AI Moderation', 'Government API Integration'],
+    stage: '🗺️ Research phase — interviewed 3 municipal officials and 60+ residents. Have detailed product requirements. Looking for a GIS specialist and backend engineer.',
+  },
+  {
+    title: 'Micro-Investment Club Platform',
+    tagline: 'Invest together. Learn together. Win together.',
+    icon: 'trending-up',
+    color: 'yellow',
+    iconClass: 'idea-icon-yellow',
+    problem: `Individual retail investing is lonely, intimidating, and high-risk. Investment clubs exist but operate via spreadsheets and informal WhatsApp groups — there's no dedicated platform. Young people want to invest but feel excluded by complexity and minimum amounts. Financial literacy is taught poorly, if at all.`,
+    solution: `A platform for creating and managing investment clubs of 3-20 people. Members pool micro-contributions (as low as ₹100/month), propose investments, vote on them, and track collective performance. Built-in financial education layers explain every investment concept as it comes up. Gamified milestones celebrate club achievements. Regulatory compliance handled automatically.`,
+    why: `SEBI\'s sandbox for fintech innovation is expanding. UPI has eliminated friction for small payments. Gen Z is highly financially motivated but lacks community infrastructure. The gamification of finance (Zerodha, Groww) has proven virality. An investment club product fills a specific, unaddressed gap.`,
+    skills: ['FinTech Development', 'Regulatory Compliance (SEBI)', 'Finance Data APIs', 'Real-time Collaboration', 'Gamification Design', 'Social Features'],
+    stage: '💡 Ideation + regulatory research — have mapped out the SEBI compliance requirements. Looking for a FinTech compliance advisor and a backend developer with financial systems experience.',
+  },
+  {
+    title: 'Carbon Footprint Social Network',
+    tagline: 'Make climate action contagious',
+    icon: 'leaf',
+    color: 'pink',
+    iconClass: 'idea-icon-pink',
+    problem: `Climate anxiety is rampant, but individual action feels futile in isolation. Sustainability apps are either too data-heavy (nobody fills in a 20-field carbon calculator daily) or too preachy. The missing ingredient is community and competition — the same forces that make fitness apps like Strava so sticky.`,
+    solution: `A social network where your climate actions are the content. Log a plant-based meal, a bike commute, a repair instead of replace — earn carbon credits and share with friends. Follow friends, join city-wide challenges, unlock badges. Companies can sponsor challenges (e.g., "Wear your clothes 5 times before washing" sponsored by a sustainable fashion brand). Real-time leaderboards by city, office, school.`,
+    why: `ESG investment in consumer apps is surging. Younger demographics rate climate action as a top value. Gamification + social proof is the proven formula for behavior change (Duolingo, Strava, Habitica). Corporate sustainability budgets are actively seeking consumer engagement channels.`,
+    skills: ['IoT & Sensor Integration', 'Gamification Architecture', 'Full-Stack Web Development', 'Sustainability Data Standards', 'Social Graph Design', 'Brand Partnership Integration'],
+    stage: '🌱 Early prototype — built a basic logging + leaderboard MVP. Have 200 beta waitlist signups. Looking for a growth hacker and a sustainability domain expert.',
+  }
+];
+
+function openIdeaModal(idx, event) {
+  if (event) event.stopPropagation();
+  const idea = ideas[idx];
+  document.getElementById('modal-title').textContent = idea.title;
+  document.getElementById('modal-tagline').textContent = idea.tagline;
+  document.getElementById('modal-problem').textContent = idea.problem;
+  document.getElementById('modal-solution').textContent = idea.solution;
+  document.getElementById('modal-why').textContent = idea.why;
+  document.getElementById('modal-stage').textContent = idea.stage;
+
+  // Skills
+  const skillsEl = document.getElementById('modal-skills');
+  skillsEl.innerHTML = idea.skills.map(s => `<span class="idea-skill">${s}</span>`).join('');
+
+  // Icon
+  const iconWrap = document.getElementById('modal-icon-wrap');
+  iconWrap.className = `idea-icon-wrap idea-icon-${idea.color}`;
+  iconWrap.style.width = '56px';
+  iconWrap.style.height = '56px';
+  iconWrap.style.borderRadius = '16px';
+  iconWrap.innerHTML = `<i data-lucide="${idea.icon}" width="28" height="28"></i>`;
+
+  document.getElementById('idea-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  safeCreateIcons();
+}
+
+function closeIdeaModal() {
+  document.getElementById('idea-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeIdeaModalOnBg(e) {
+  if (e.target === document.getElementById('idea-modal')) closeIdeaModal();
+}
+
+function scrollToContact() {
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+function scrollToContactFromModal() {
+  closeIdeaModal();
+  setTimeout(() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }), 200);
+}
+
+// ── Contact Form (Formspree) ──
+async function sendForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const subject = document.getElementById('f-subject').value.trim();
+  const message = document.getElementById('f-message').value.trim();
+
+  if (!name || !email || !message) {
+    alert('Please fill in your name, email, and message.');
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i data-lucide="loader-2" width="16" height="16"></i> Sending...';
+  safeCreateIcons();
+
+  // ↓ REPLACE this URL with your actual Formspree endpoint
+  // Get it free at https://formspree.io — takes 2 minutes
+  const FORMSPREE_URL = 'https://formspree.io/f/mgodljye';
+  // ↑ REPLACE "YOUR_FORM_ID" with your actual Formspree form ID
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, subject, message })
+    });
+
+    if (res.ok) {
+      document.getElementById('contact-form-wrap').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+      safeCreateIcons();
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = '<i data-lucide="send" width="16" height="16"></i> Send Message';
+    safeCreateIcons();
+    alert('Something went wrong. Please email me directly at your.email@example.com');
+    // ↑ REPLACE with your actual email
+  }
+}
+
+// ── Keyboard: close modals with Escape ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+    closeIdeaModal();
+    if (document.getElementById('mobile-nav').classList.contains('open')) toggleMobileNav();
+  }
+});
+
+</script>
+</body>
+</html>
