@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — Your Name</title>
+<title>Portfolio — Aditya Prata Singh</title>
+<link rel="icon" type="image/x-icon" href="images/your-photo.ico">
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <script>
 // Safe wrapper — queues calls until Lucide is ready
@@ -970,7 +971,7 @@ footer {
 <!-- ════════════════════ NAV ════════════════════ -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <span>&lt;</span>Aditya Pratap Singh<span>/&gt;</span>
+    <span>&lt;</span>Aditya Prata Singh<span>/&gt;</span>
   </a>
   <!-- ↑ REPLACE "YourName" with your actual name -->
   <ul class="nav-links">
@@ -1013,7 +1014,7 @@ footer {
       </div>
       <h1 class="hero-name reveal reveal-delay-1">
         <!-- ↓ REPLACE "Your" and "Name Here" with your actual first and last name -->
-        Aditya<br><span class="line2">Pratap Singh</span>
+        Aditya<br><span class="line2">Prata Singh</span>
       </h1>
       <p class="hero-title reveal reveal-delay-2">
         <!-- ↓ REPLACE with your actual role/title -->
@@ -1056,7 +1057,7 @@ footer {
         <img src="images/your-photo.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover"> 
       </div>
       <!-- ↓ REPLACE with your name and role -->
-      <div class="hero-card-name">Aditya Pratap Singh</div>
+      <div class="hero-card-name">Aditya Prata Singh</div>
       <div class="hero-card-role">Coder, Innovator &amp; Creative Technologist</div>
       <div class="skill-chips">
         <!-- ↓ REPLACE these chips with your actual skills -->
@@ -2031,11 +2032,11 @@ footer {
 <footer>
   <div class="footer-brand">
     <!-- ↓ REPLACE "YourName" with your actual name -->
-    &lt;<span>YourName</span>/&gt;
+    &lt;<span>AdityaPrataSingh</span>/&gt;
   </div>
   <div class="footer-copy">
     <!-- ↓ REPLACE "Your Name" with your actual name -->
-    © 2025 Your Name · Built with passion
+    © 2025 Aditya Prata Singh · Built with passion
   </div>
   <div class="footer-socials">
     <!-- ↓ REPLACE all href values with your actual social links -->
@@ -2132,7 +2133,16 @@ function filterCerts(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.cert-card').forEach(card => {
-    const show = cat === 'all' || card.dataset.category === cat;
+    let show = cat === 'all';
+    if (!show) {
+      const tags = card.querySelectorAll('.cert-tag');
+      for (let tag of tags) {
+        if (tag.textContent.toLowerCase() === cat) {
+          show = true;
+          break;
+        }
+      }
+    }
     card.style.display = show ? 'block' : 'none';
   });
 }
