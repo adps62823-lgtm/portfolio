@@ -15,7 +15,7 @@ window.safeCreateIcons = function() {
   else { window._lucideQueue.push(true); }
 };
 </script>
-<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js" onload="window._lucideReady=true; lucide.createIcons(); window._lucideQueue=[];"></script>
+<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js" defer onload="window._lucideReady=true; lucide.createIcons(); window._lucideQueue=[];"></script>
 
 <style>
 /* ═══════════════════════════════════════════════
@@ -1742,9 +1742,8 @@ footer {
             <span class="tech-pill">TradingView</span>
           </div>
           <div>
-            <span><p>Under Development</p></span>
-            <span><a href="#contact" class="project-link primary">Want to collaborate?</a></span>
-          </div>
+            <p>Under Development</p>
+            <a href="#contact" class="project-link primary">Want to collaborate?</a>
           </div>
         </div>
       </div>
