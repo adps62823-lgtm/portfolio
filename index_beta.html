@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Aditya Pratap Singh</title>
-<link rel="icon" type="image/x-icon" href="images/your-photo.ico">
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <script>
 // Safe wrapper — queues calls until Lucide is ready
@@ -15,7 +14,7 @@ window.safeCreateIcons = function() {
   else { window._lucideQueue.push(true); }
 };
 </script>
-<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js" defer onload="window._lucideReady=true; lucide.createIcons(); window._lucideQueue=[];"></script>
+<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js" onload="window._lucideReady=true; lucide.createIcons(); window._lucideQueue=[];"></script>
 
 <style>
 /* ═══════════════════════════════════════════════
@@ -963,6 +962,104 @@ footer {
 .idea-icon-green { background: rgba(52,211,153,0.1); color: var(--accent3); }
 .idea-icon-yellow { background: rgba(251,191,36,0.1); color: var(--warn); }
 .idea-icon-pink { background: rgba(244,114,182,0.1); color: #f472b6; }
+
+/* ═══════════════════════════════════════════════
+   FEATURE 1 — SCROLL PROGRESS BAR
+   ═══════════════════════════════════════════════ */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 2000;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px rgba(110,231,255,0.5);
+}
+
+/* ═══════════════════════════════════════════════
+   FEATURE 2 — CUSTOM CURSOR
+   ═══════════════════════════════════════════════ */
+* { cursor: none !important; }
+@media (hover: none) { * { cursor: auto !important; } }
+
+#cursor-dot {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 0 12px rgba(110,231,255,0.8), 0 0 24px rgba(110,231,255,0.4);
+  mix-blend-mode: screen;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9998;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(110,231,255,0.4);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s cubic-bezier(0.16,1,0.3,1),
+              width 0.25s ease, height 0.25s ease,
+              border-color 0.2s ease, opacity 0.2s ease;
+}
+#cursor-trail {
+  position: fixed; top: 0; left: 0; z-index: 9997;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(110,231,255,0.25);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+}
+body.cursor-hovering #cursor-dot { width: 12px; height: 12px; background: var(--accent2); }
+body.cursor-hovering #cursor-ring {
+  width: 52px; height: 52px;
+  border-color: rgba(167,139,250,0.5);
+}
+body.cursor-clicking #cursor-dot { transform: translate(-50%,-50%) scale(0.6); }
+body.cursor-clicking #cursor-ring { transform: translate(-50%,-50%) scale(0.85); }
+
+/* ═══════════════════════════════════════════════
+   FEATURE 3 — DARK/LIGHT MODE TOGGLE
+   ═══════════════════════════════════════════════ */
+#theme-toggle {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2); transition: all 0.2s;
+  flex-shrink: 0;
+  cursor: none !important;
+}
+#theme-toggle:hover { color: var(--accent); border-color: rgba(110,231,255,0.3); background: rgba(110,231,255,0.06); }
+
+/* Light mode overrides */
+body.light-mode {
+  --bg: #f4f6fb;
+  --bg2: #eaecf4;
+  --bg3: #dde1ee;
+  --surface: #ffffff;
+  --surface2: #e8eaf4;
+  --border: rgba(0,0,0,0.08);
+  --border-bright: rgba(0,0,0,0.16);
+  --text: #111827;
+  --text2: #4b5563;
+  --text3: #9ca3af;
+  --shadow: 0 8px 40px rgba(0,0,0,0.12);
+  --glow-blue: 0 0 40px rgba(0,150,200,0.1);
+  --glow-purple: 0 0 40px rgba(100,80,200,0.08);
+}
+body.light-mode #cursor-dot { box-shadow: 0 0 10px rgba(0,180,220,0.6); }
+body.light-mode::before { opacity: 0.15; }
+body.light-mode .hero-grid {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+}
+body.light-mode .bar-track { background: rgba(0,0,0,0.07); }
+body.light-mode nav { background: rgba(244,246,251,0.9); }
+body.light-mode .mobile-nav { background: rgba(244,246,251,0.97); }
+
+/* ═══════════════════════════════════════════════
+   FEATURE 4 — PAGE LOAD ANIMATION
+   ═══════════════════════════════════════════════ */
 #page-loader {
   position: fixed; inset: 0; z-index: 10000;
   background: var(--bg);
@@ -1019,6 +1116,52 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ═══════════════════════════════════════════════
+   FEATURE 5 — TYPING EFFECT
+   ═══════════════════════════════════════════════ */
+.typing-word {
+  color: var(--accent2);
+  font-weight: 500;
+  position: relative;
+}
+.typing-cursor {
+  display: inline-block;
+  width: 2px; height: 1.1em;
+  background: var(--accent2);
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink-cursor 1s step-end infinite;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   FEATURE 6 — COPY EMAIL BUTTON
+   ═══════════════════════════════════════════════ */
+.copy-email-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(110,231,255,0.08);
+  border: 1px solid rgba(110,231,255,0.2);
+  color: var(--accent);
+  font-size: 0.75rem; font-weight: 600;
+  cursor: none !important;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  flex-shrink: 0;
+}
+.copy-email-btn:hover { background: rgba(110,231,255,0.15); border-color: rgba(110,231,255,0.4); }
+.copy-email-btn.copied {
+  background: rgba(52,211,153,0.1);
+  border-color: rgba(52,211,153,0.3);
+  color: var(--accent3);
+}
 </style>
 </head>
 
@@ -1035,6 +1178,14 @@ footer {
   <div class="loader-tagline">Portfolio · 2026</div>
 </div>
 
+<!-- ════════ SCROLL PROGRESS BAR ════════ -->
+<div id="scroll-progress"></div>
+
+<!-- ════════ CUSTOM CURSOR ════════ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-trail"></div>
+
 <!-- ════════════════════ NAV ════════════════════ -->
 <nav>
   <a href="#hero" class="nav-logo">
@@ -1048,8 +1199,13 @@ footer {
     <li><a href="#ideas">Ideas</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
-  <div class="nav-hamburger" onclick="toggleMobileNav()" id="hamburger-btn">
-    <i data-lucide="menu" width="24" height="24"></i>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
+      <i data-lucide="sun" width="18" height="18" id="theme-icon"></i>
+    </button>
+    <div class="nav-hamburger" onclick="toggleMobileNav()" id="hamburger-btn">
+      <i data-lucide="menu" width="24" height="24"></i>
+    </div>
   </div>
 </nav>
 
@@ -1084,7 +1240,6 @@ footer {
         Aditya<br><span class="line2">Pratap Singh</span>
       </h1>
       <p class="hero-title reveal reveal-delay-2">
-        <!-- ↓ REPLACE with your actual role/title -->
         Coder, Innovator &amp; <strong>a Creative Technologist</strong>
       </p>
       <p class="hero-desc reveal reveal-delay-3">
@@ -1121,7 +1276,10 @@ footer {
 
     <div class="hero-card reveal reveal-delay-2">
       <div class="hero-avatar">
-        <img src="images/your-photo.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover"> 
+        <!-- ↓ REPLACE this entire div with your photo:
+             <img src="your-photo.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover"> 
+             OR just change the letter "Y" to your initial -->
+        
       </div>
       <!-- ↓ REPLACE with your name and role -->
       <div class="hero-card-name">Aditya Pratap Singh</div>
@@ -1132,7 +1290,7 @@ footer {
         <span class="chip">Node.js</span>
         <span class="chip">Python</span>
         <span class="chip">UI/UX</span>
-        <span class="chip">ML & AI</span>
+        <span class="chip">ML</span>
         <span class="chip">Cloud</span>
       </div>
       <div class="availability">
@@ -1665,7 +1823,7 @@ footer {
 
     <div class="show-more-wrap reveal">
       <p id="cert-count" style="color:var(--text3);font-size:0.85rem;margin-bottom:16px;">
-        Showing 6 of 30+ certificates from some of most prestigious platforms and competitions. More coming soon as I continue to learn and grow!
+        Showing 15 of 30+ certificates from some of most prestigious platforms and competitions. More coming soon as I continue to learn and grow!
       </p>
     </div>
   </div>
@@ -1820,8 +1978,11 @@ footer {
             </button>
           </div>
         </div>
-        </div>
       </div>
+
+    </div>
+  </div>
+</section>
 
 
 <!-- ════════════════════ IDEATION GALLERY ════════════════════ -->
@@ -2026,14 +2187,33 @@ footer {
 
         <div class="contact-methods">
           <!-- ↓ REPLACE all href and text values with your actual contact details -->
-          <a href="mailto:adps62823@gmail.com" class="contact-method reveal">
-            <div class="contact-method-icon" style="background:rgba(110,231,255,0.1);color:var(--accent);">
-              <i data-lucide="mail" width="20" height="20"></i>
+          <a href="mailto:adps62823@gmail.com" class="contact-method reveal" style="justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div class="contact-method-icon" style="background:rgba(110,231,255,0.1);color:var(--accent);">
+                <i data-lucide="mail" width="20" height="20"></i>
+              </div>
+              <div>
+                <div class="contact-method-title">Email</div>
+                <div class="contact-method-value" id="email-display">adps62823@gmail.com</div>
+                <!-- ↑ REPLACE with your actual email — also update the data-email below -->
+              </div>
+            </div>
+            <button class="copy-email-btn" id="copy-email-btn"
+              data-email="adps62823@gmail.com"
+              onclick="copyEmail(event)"
+              title="Copy email to clipboard">
+              <i data-lucide="copy" width="12" height="12" id="copy-icon"></i>
+              <span id="copy-label">Copy</span>
+            </button>
+          </a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-method reveal reveal-delay-1">
+            <div class="contact-method-icon" style="background:rgba(167,139,250,0.1);color:var(--accent2);">
+              <i data-lucide="linkedin" width="20" height="20"></i>
             </div>
             <div>
-              <div class="contact-method-title">Email</div>
-              <div class="contact-method-value">adps62823@gmail.com</div>
-              <!-- ↑ REPLACE with your actual email -->
+              <div class="contact-method-title">LinkedIn</div>
+              <div class="contact-method-value">linkedin.com/in/yourprofile</div>
+              <!-- ↑ REPLACE with your actual LinkedIn URL -->
             </div>
           </a>
           <a href="https://github.com/adps62823-lgtm" target="_blank" class="contact-method reveal reveal-delay-2">
@@ -2109,18 +2289,24 @@ footer {
 <footer>
   <div class="footer-brand">
     <!-- ↓ REPLACE "YourName" with your actual name -->
-    &lt;<span>AdityaPratapSingh</span>/&gt;
+    &lt;<span>Aditya Pratap Singh</span>/&gt;
   </div>
   <div class="footer-copy">
     <!-- ↓ REPLACE "Your Name" with your actual name -->
-    © 2026 Aditya Pratap Singh · Built with passion
+    © 2025 Aditya Pratap Singh · Built with passion
   </div>
   <div class="footer-socials">
     <!-- ↓ REPLACE all href values with your actual social links -->
     <a href="https://github.com/adps62823-lgtm" target="_blank" class="footer-social">
       <i data-lucide="github" width="16" height="16"></i>
     </a>
-    <a href="mailto:adps62823@gmail.com" class="footer-social">
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="footer-social">
+      <i data-lucide="linkedin" width="16" height="16"></i>
+    </a>
+    <a href="https://twitter.com/yourhandle" target="_blank" class="footer-social">
+      <i data-lucide="twitter" width="16" height="16"></i>
+    </a>
+    <a href="mailto:your.email@example.com" class="footer-social">
       <i data-lucide="mail" width="16" height="16"></i>
     </a>
   </div>
@@ -2200,58 +2386,14 @@ function closeLightboxOnBg(e) {
 }
 
 // ── Certificate Filter ──
-function getCertificateYear(card) {
-  const issuer = card.querySelector('.cert-issuer');
-  if (!issuer) return 0;
-  const match = issuer.textContent.match(/(\d{4})\s*$/);
-  return match ? Number(match[1]) : 0;
-}
-
-function initFeaturedCertificates(limit = 6) {
-  const cards = Array.from(document.querySelectorAll('.cert-card'));
-  const sorted = cards
-    .map((card, index) => ({ card, year: getCertificateYear(card), index }))
-    .sort((a, b) => b.year - a.year || a.index - b.index);
-
-  sorted.forEach((entry, idx) => {
-    entry.card.dataset.featured = idx < limit ? 'true' : 'false';
-  });
-}
-
 function filterCerts(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
+  btn.classList.add('active');
   document.querySelectorAll('.cert-card').forEach(card => {
-    let show = false;
-
-    if (cat === 'all') {
-      show = true;
-    } else if (cat === 'featured') {
-      show = card.dataset.featured === 'true';
-    } else {
-      const tags = card.querySelectorAll('.cert-tag');
-      for (let tag of tags) {
-        if (tag.textContent.toLowerCase() === cat) {
-          show = true;
-          break;
-        }
-      }
-    }
-
+    const show = cat === 'all' || card.dataset.category === cat;
     card.style.display = show ? 'block' : 'none';
   });
-
-  const visible = document.querySelectorAll('.cert-card:not([style*="display: none"])').length;
-  const total = document.querySelectorAll('.cert-card').length;
-  const countTextEl = document.getElementById('cert-count');
-  if (countTextEl) {
-    countTextEl.textContent = `Showing ${visible} of ${total}+ certificates`;
-  }
 }
-
-initFeaturedCertificates();
-filterCerts('featured', document.querySelector('.filter-btn.active'));
 
 // ── Idea Data ──
 const ideas = [
@@ -2400,7 +2542,7 @@ async function sendForm() {
     btn.disabled = false;
     btn.innerHTML = '<i data-lucide="send" width="16" height="16"></i> Send Message';
     safeCreateIcons();
-    alert('Something went wrong. Please email me directly at your.email@example.com');
+    alert('Something went wrong. Please email me directly at adps62823@gmail.com');
     // ↑ REPLACE with your actual email
   }
 }
@@ -2441,6 +2583,160 @@ document.addEventListener('keydown', e => {
   // Prevent scroll during load
   document.body.style.overflow = 'hidden';
 })();
+
+/* ════════════════════════════════════════════════
+   FEATURE 2 — SCROLL PROGRESS BAR
+   ════════════════════════════════════════════════ */
+(function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+/* ════════════════════════════════════════════════
+   FEATURE 3 — CUSTOM CURSOR
+   ════════════════════════════════════════════════ */
+(function initCursor() {
+  // Only on non-touch devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  const dot   = document.getElementById('cursor-dot');
+  const ring  = document.getElementById('cursor-ring');
+  const trail = document.getElementById('cursor-trail');
+
+  let mx = -100, my = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform   = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+    ring.style.transform  = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+    // trail lags via CSS transition — just update position
+    trail.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  }, { passive: true });
+
+  // Hover state on interactive elements
+  const hoverEls = 'a, button, [onclick], .cert-card, .idea-card, .project-card, .filter-btn, input, textarea, select, label';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverEls)) document.body.classList.add('cursor-hovering');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverEls)) document.body.classList.remove('cursor-hovering');
+  });
+
+  // Click state
+  document.addEventListener('mousedown', () => document.body.classList.add('cursor-clicking'));
+  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-clicking'));
+
+  // Hide when leaving window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity = ring.style.opacity = trail.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity = ring.style.opacity = trail.style.opacity = '1';
+  });
+})();
+
+/* ════════════════════════════════════════════════
+   FEATURE 4 — DARK / LIGHT MODE TOGGLE
+   ════════════════════════════════════════════════ */
+(function initTheme() {
+  const saved = localStorage.getItem('portfolio-theme');
+  if (saved === 'light') applyLight();
+
+  function applyLight() {
+    document.body.classList.add('light-mode');
+    const icon = document.getElementById('theme-icon');
+    if (icon) { icon.setAttribute('data-lucide', 'moon'); safeCreateIcons(); }
+  }
+  function applyDark() {
+    document.body.classList.remove('light-mode');
+    const icon = document.getElementById('theme-icon');
+    if (icon) { icon.setAttribute('data-lucide', 'sun'); safeCreateIcons(); }
+  }
+
+  window.toggleTheme = function() {
+    if (document.body.classList.contains('light-mode')) {
+      applyDark(); localStorage.setItem('portfolio-theme', 'dark');
+    } else {
+      applyLight(); localStorage.setItem('portfolio-theme', 'light');
+    }
+  };
+})();
+
+/* ════════════════════════════════════════════════
+   FEATURE 5 — TYPING EFFECT
+   ════════════════════════════════════════════════ */
+(function initTyping() {
+  const words = ['Coder', 'Innovator', 'Creative Technologist'];
+  const el = document.getElementById('typing-word');
+  if (!el) return;
+
+  let wordIdx = 0, charIdx = 0, deleting = false;
+  const TYPE_SPEED = 80, DELETE_SPEED = 45, PAUSE_END = 1800, PAUSE_START = 300;
+
+  function tick() {
+    const word = words[wordIdx];
+    if (!deleting) {
+      charIdx++;
+      el.textContent = word.slice(0, charIdx);
+      if (charIdx === word.length) {
+        deleting = true;
+        setTimeout(tick, PAUSE_END);
+        return;
+      }
+    } else {
+      charIdx--;
+      el.textContent = word.slice(0, charIdx);
+      if (charIdx === 0) {
+        deleting = false;
+        wordIdx = (wordIdx + 1) % words.length;
+        setTimeout(tick, PAUSE_START);
+        return;
+      }
+    }
+    setTimeout(tick, deleting ? DELETE_SPEED : TYPE_SPEED);
+  }
+
+  // Start after a short delay so loader doesn't overlap
+  setTimeout(tick, 2200);
+})();
+
+/* ════════════════════════════════════════════════
+   FEATURE 6 — COPY EMAIL BUTTON
+   ════════════════════════════════════════════════ */
+window.copyEmail = function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const btn   = document.getElementById('copy-email-btn');
+  const label = document.getElementById('copy-label');
+  const icon  = document.getElementById('copy-icon');
+  const email = btn.dataset.email;
+
+  navigator.clipboard.writeText(email).then(() => {
+    btn.classList.add('copied');
+    label.textContent = 'Copied!';
+    icon.setAttribute('data-lucide', 'check');
+    safeCreateIcons();
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      label.textContent = 'Copy';
+      icon.setAttribute('data-lucide', 'copy');
+      safeCreateIcons();
+    }, 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    label.textContent = 'Copied!';
+    setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+  });
+};
 
 </script>
 </body>
